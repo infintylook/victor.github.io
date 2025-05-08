@@ -1,0 +1,120 @@
+// Archivo: index.html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito Flotante</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <style>
+        /* Archivo: styles.css */
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+.productos {
+    margin-bottom: 20px;
+}
+
+.producto {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.carrito-boton {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 18px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.carrito {
+    display: none;
+    position: fixed;
+    bottom: 70px;
+    right: 20px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    width: 200px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.carrito ul {
+    list-style: none;
+    padding: 0;
+}
+
+.carrito ul li {
+    padding: 5px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+    </style>
+    <div class="productos">
+        <div class="producto">
+            <span>Producto A - $10</span>
+            <button onclick="agregarAlCarrito('Producto A', 10)">Agregar</button>
+        </div>
+        <div class="producto">
+            <span>Producto B - $20</span>
+            <button onclick="agregarAlCarrito('Producto B', 20)">Agregar</button>
+        </div>
+        <div class="producto">
+            <span>Producto C - $30</span>
+            <button onclick="agregarAlCarrito('Producto C', 30)">Agregar</button>
+        </div>
+    </div>
+    
+    <button class="carrito-boton" onclick="toggleCarrito()">🛒 (<span id="contador">0</span>)</button>
+    <div class="carrito" id="carrito">
+        <h2>Carrito</h2>
+        <ul id="lista-carrito"></ul>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
+
+<script>
+    // Archivo: script.js
+let carrito = [];
+
+function agregarAlCarrito(nombre, precio) {
+    carrito.push({ nombre, precio });
+    actualizarCarrito();
+}
+
+function actualizarCarrito() {
+    const listaCarrito = document.getElementById("lista-carrito");
+    const contador = document.getElementById("contador");
+    listaCarrito.innerHTML = "";
+    carrito.forEach((item, index) => {
+        const li = document.createElement("li");
+        li.textContent = `${item.nombre} - $${item.precio}`;
+        listaCarrito.appendChild(li);
+    });
+    contador.textContent = carrito.length;
+}
+
+function toggleCarrito() {
+    const carritoDiv = document.getElementById("carrito");
+    carritoDiv.style.display = carritoDiv.style.display === "block" ? "none" : "block";
+}
+
+</script>
